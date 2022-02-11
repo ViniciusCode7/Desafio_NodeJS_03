@@ -6,6 +6,7 @@ import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import { notEqual } from "assert";
 
 dotenv.config();
 
@@ -33,11 +34,41 @@ app.use(express.json());
  * Server Activation
  */
 
-app.listen(PORT, () => {
-	console.log(`Listening on port ${PORT}`);
-
+app.listen(PORT, async() => {
+	console.log(`Listening on port ${PORT}`);	
 
 	// CÓDIGO PARA ATENDER OS REQUERIMENTOS
-	// R01, R02, R03, R04, R05
-	
+
+	const readline = require('readline');
+	const r1 = readline.createInterface({
+		input: process.stdin,
+		output: process.stdout
+
+	});
+
+		// R01,
+	const question = (str: string) => new Promise((resolve) => r1.question(str, resolve));
+
+	let alunos = Number(await question("Qual a quantidade de alunos "));
+
+		// R02 
+	console.log('Quantidade de alunos', alunos)
+
+		// R03 
+	let alunosArray = []
+	for (let i = 0; i < alunos; i++) {
+
+	    let alunoNome = await question('Qual o nome do aluno? ');
+	    console.log(alunoNome);
+
+		let notaNome = await question('Qual a nota do aluno? ');
+		console.log(notaNome);
+
+	    alunosArray.push(notaNome); }
+	   
+		// R04
+		const a = 0;
+		const b = 1;
+        alunosArray.sort((a: any, b: any) => b[0] - a[0]);
+		console.log('A maior nota é: ', alunosArray[0]);
 });
